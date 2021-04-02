@@ -10,7 +10,7 @@ class Api {
     return result.data.category;
   }
 
-  async getFeeds(category_arr) {
+  async getFeeds(category_arr, count) {
     const result = await axios({
       method: "get",
       url: "https://problem.comento.kr/api/list",
@@ -19,7 +19,7 @@ class Api {
         page: 10,
         ord: "asc",
         category: category_arr,
-        limit: 10,
+        limit: count,
       },
     });
     return result.data;

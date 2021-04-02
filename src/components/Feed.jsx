@@ -1,7 +1,7 @@
 import React from "react";
 
 const Feed = ({ category, info }) => {
-  const { category_id, id, user_id, created_at, title, content } = info;
+  const { category_id, id, user_id, created_at, title, contents } = info;
   return (
     <li>
       <p>
@@ -15,7 +15,7 @@ const Feed = ({ category, info }) => {
         <span>{created_at}</span>
       </p>
       <h3>{title}</h3>
-      <p>{content}</p>
+      <p>{contents}</p>
     </li>
   );
 };
