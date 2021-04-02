@@ -35,8 +35,10 @@ class Api {
         limit:5
       }
     });
-    return result;
+    return result.data.data;
   }
+
+  
 }
 
 export default Api;

@@ -7,6 +7,7 @@ const Home = ({ api }) => {
   const [category, setCategory] = useState();
   const [categoryId, setCategoryId] = useState([]);
   const [feedInfo, setFeedInfo] = useState();
+  const [adInfo, setAdInfo] = useState();
   const [standard, setStandard] = useState(true);
 
   // const getMoreFeeds = () => {
@@ -14,25 +15,39 @@ const Home = ({ api }) => {
   //     api.getFeeds(categoryId,).then((result) => setFeedInfo(result.data));
   //   }
   // }
-
   useEffect(() => {
     api.getCategory().then((result) => {
       const category_id = result.map((result) => result.id);
       setCategory(result);
       setCategoryId(category_id);
     });
+
+    api.getAds().then((result) => setAdInfo(result));
   }, []);
 
   useEffect(() => {
-    if (categoryId) {
+    if (categoryId && adInfo) {
       api.getFeeds(categoryId, 10).then((result) => {
-  
-        standard 
-        ? setFeedInfo((result.data).sort((a,b) => a.id-b.id))
-        : setFeedInfo((result.data).sort((a,b) => b.id-a.id));
+        adInfo.forEach((ad, index) => {
+          if (index !== 0) {
+            let position = 4 * index - 1;
+            result.data.splice(position, 0, ad);
+          }
+        });
+        setFeedInfo(result.data);
+
+        if (standard) {
+          const filtered = result.data.filter(
+            (data) => data.category_id !== undefined
+          );
+        }
+
+        //  standard
+        //   ? setFeedInfo(result.data.sort((a, b) => a.id - b.id))
+        //   : setFeedInfo(result.data.sort((a, b) => b.id - a.id));
       });
     }
-  }, [categoryId, standard]);
+  }, [categoryId, adInfo]);
 
   // window.addEventListener("scroll", () => {
   //   const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
