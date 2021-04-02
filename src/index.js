@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './app';
+import Api from './Service/api';
 
-
+const api = new Api();
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App api={api}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

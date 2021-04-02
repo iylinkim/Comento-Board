@@ -1,7 +1,12 @@
-import './app.css';
+import "./app.css";
+import Home from "./routes/Home";
 
-function App() {
-  return <h1>Hello :)</h1>;
+function App({ api }) {
+  return (
+    <>
+      <Home api={api} />
+    </>
+  );
 }
 
 export default App;
