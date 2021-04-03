@@ -1,0 +1,8 @@
+@value makerLightGrey,makerMediumGrey from "common/colors.css";
+
+.header {
+  padding: 15px 2%;
+  border-bottom: 1px solid makerLightGrey;
+  color: makerMediumGrey;
+  font-size: 0.7rem;
+}
