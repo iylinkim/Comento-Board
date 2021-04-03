@@ -1,3 +1,22 @@
-.order{
-    background-color:gold;
+@value makerGreen, makerWhite from "common/colors.css";
+
+.home{
+    padding-top:20px;
+    display:flex;
+    justify-content: space-between;
+}
+
+.login{
+    width:10%;
+    height:30px;
+    min-width:100px;
+    margin-right:20px;
+    border-radius:2px;
+    border:none;
+    color:makerWhite;
+    font-weight:700;
+    background-color: makerGreen;
+}
+.contents{
+    width:89%;
 }

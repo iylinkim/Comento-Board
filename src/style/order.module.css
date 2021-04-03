@@ -1,3 +1,23 @@
-.order{
-    color:blue;
+@value makerMediumGrey, makerGreen, makerBlack from "common/colors.css";
+.order_standard {
+  display: flex;
+  color: makerMediumGrey;
+  font-size: 0.5rem;
+}
+.order {
+  opacity: 0.5;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.circle {
+  padding-right: 3px;
+}
+.selected {
+  opacity: 1;
+  color: makerBlack;
+}
+
+.selected .circle {
+  color: makerGreen;
 }

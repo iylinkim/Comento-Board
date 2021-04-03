@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Feed from "../components/Feed";
 import Order from "../components/Order";
-import styles from "../style/home.module.css";
+import styles from "style/home.module.css";
 
 const Home = ({ api }) => {
   const [category, setCategory] = useState();
@@ -62,17 +62,20 @@ const Home = ({ api }) => {
   // });
 
   return (
-    <>
-      <Order setStandard={setStandard} />
-      <ul>
-        {feedInfo &&
-          feedInfo.map((info) => {
-            return (
-              <Feed key={info.id} category={category} info={info} api={api} />
-            );
-          })}
-      </ul>
-    </>
+    <div className={styles.home}>
+      <button className={styles.login}>로그인</button>
+      <div className={styles.contents}>
+        <Order setStandard={setStandard} />
+        <ul>
+          {feedInfo &&
+            feedInfo.map((info) => {
+              return (
+                <Feed key={info.id} category={category} info={info} api={api} />
+              );
+            })}
+        </ul>
+      </div>
+    </div>
   );
 };
 
