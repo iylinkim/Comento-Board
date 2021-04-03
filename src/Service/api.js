@@ -38,6 +38,17 @@ class Api {
     return result.data.data;
   }
 
+  async getDetail(feed_id) {
+    const result = await axios({
+      method: "get",
+      url: "https://problem.comento.kr/api/view",
+      header: "Accept:application/json",
+      params:{
+        id:feed_id
+      }
+    });
+    return result.data.data;
+  }
   
 }
 

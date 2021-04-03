@@ -1,9 +1,16 @@
 import React from "react";
+import { useHistory, useParams } from "react-router";
 
-const Feed = ({ category, info }) => {
+const Feed = ({ category, info, api }) => {
   const { category_id, id, user_id, created_at, title, contents } = info;
+  const history = useHistory();
+  const path = useParams();
+
+  const onClick = () => {
+    history.push(`/${id}`);
+  };
   return (
-    <li>
+    <li onClick={onClick}>
       {info.img && <p>sponsored</p>}
       {info.img && (
         <p>

@@ -67,7 +67,9 @@ const Home = ({ api }) => {
       <ul>
         {feedInfo &&
           feedInfo.map((info) => {
-            return <Feed key={info.id} category={category} info={info} />;
+            return (
+              <Feed key={info.id} category={category} info={info} api={api} />
+            );
           })}
       </ul>
     </>
