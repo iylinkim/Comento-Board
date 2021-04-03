@@ -66,7 +66,7 @@ const Home = ({ api }) => {
       <button className={styles.login}>로그인</button>
       <div className={styles.contents}>
         <Order setStandard={setStandard} />
-        <ul>
+        <ul className={styles.feeds}>
           {feedInfo &&
             feedInfo.map((info) => {
               return (

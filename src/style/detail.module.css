@@ -1,0 +1,54 @@
+@value makerMediumGrey, makerLightGrey, makerGreen from "common/colors.css";
+
+.detail {
+  padding: 15px;
+  margin: 40px 0 20px;
+  border: 1px solid makerGreen;
+  border-radius: 5px;
+}
+
+.title {
+  padding-bottom: 10px;
+}
+.contents {
+  color: makerDarkGrey;
+  font-size: 0.9rem;
+}
+
+.date {
+  padding-top: 15px;
+  font-size: 0.7rem;
+  color: makerMediumGrey;
+  opacity: 0.5;
+}
+
+.reply_count {
+  color: makerGreen;
+}
+
+.replies {
+  padding-top: 15px;
+}
+
+.reply {
+  padding: 15px;
+  margin-bottom:20px;
+  border: 1px solid makerLightGrey;
+  border-radius: 5px;
+  font-size:0.8rem;
+  color:makerMediumGrey;
+}
+
+.reply_username{
+    font-size:0.9rem;
+    padding-bottom:5px;
+    margin-bottom:20px;
+    border-bottom:1px solid makerLightGrey;
+    opacity:0.8;
+}
+
+.reply_date{
+    padding-top:15px;
+    font-size:0.7rem;
+    opacity:0.6;
+}
