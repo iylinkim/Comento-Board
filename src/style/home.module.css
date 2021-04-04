@@ -1,4 +1,5 @@
-@value makerGreen, makerWhite from "common/colors.css";
+@value makerGreen, makerWhite, makerLightGrey from "common/colors.css";
+@value mediaQuery from "common/size.css";
 
 .home{
     padding-top:20px;
@@ -9,7 +10,6 @@
 .login{
     width:10%;
     height:30px;
-    min-width:100px;
     margin-right:20px;
     border-radius:2px;
     border:none;
@@ -19,8 +19,23 @@
 }
 .contents{
     width:89%;
+    /* position:relative; */
 }
 
 .feeds{
     margin-top:20px;
+}
+
+@media (max-width:mediaQuery){
+    .login{
+        display:none;
+    }
+
+    .contents{
+        width:100%;
+    }
+
+    .feeds{
+        background-color:makerLightGrey;
+    }
 }

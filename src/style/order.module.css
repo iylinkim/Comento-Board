@@ -1,4 +1,6 @@
-@value makerMediumGrey, makerGreen, makerBlack from "common/colors.css";
+@value makerLightGrey,makerMediumGrey, makerGreen, makerBlack from "common/colors.css";
+@value mediaQuery from "common/size.css";
+
 .order_standard {
   display: flex;
   color: makerMediumGrey;
@@ -20,4 +22,11 @@
 
 .selected .circle {
   color: makerGreen;
+}
+
+@media (max-width: mediaQuery) {
+  .order_standard {
+    padding: 0 15px 20px;
+    border-bottom:1px solid makerLightGrey;
+  }
 }

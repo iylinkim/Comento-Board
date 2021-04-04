@@ -1,4 +1,5 @@
 @value makerMediumGrey, makerLightGrey, makerGreen from "common/colors.css";
+@value mediaQuery from "common/size.css";
 
 .detail {
   padding: 15px;
@@ -23,6 +24,7 @@
 }
 
 .reply_count {
+    padding-left:5px;
   color: makerGreen;
 }
 
@@ -51,4 +53,24 @@
     padding-top:15px;
     font-size:0.7rem;
     opacity:0.6;
+}
+
+@media (max-width:mediaQuery){
+    .detail{
+        border-radius:0;
+        border:none;
+        border-top:1px solid makerGreen;
+        border-bottom:1px solid makerGreen;
+    }
+
+    .reply{
+        border-radius:0;
+        border:none;
+        border-top:1px solid makerLightGrey;
+        border-bottom:1px solid makerLightGrey;
+    }
+
+    .reply_title{
+        padding-left:15px;
+    }
 }

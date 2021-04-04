@@ -23,6 +23,7 @@ const Feed = ({ category, info, api }) => {
           <>
             <p className={styles.category}>
               {category.filter((cate) => cate.id === category_id)[0].name}
+              <span className={styles.id}>{id}</span>
             </p>
             <p className={styles.user_date}>
               <span className={styles.user_id}>{user_id}</span>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Feed from "../components/Feed";
 import Order from "../components/Order";
 import styles from "style/home.module.css";
+import Filter from "components/Filter";
 
 const Home = ({ api }) => {
   const [category, setCategory] = useState();
@@ -9,6 +10,7 @@ const Home = ({ api }) => {
   const [feedInfo, setFeedInfo] = useState();
   const [adInfo, setAdInfo] = useState();
   const [standard, setStandard] = useState(true);
+  const [filter, setFilter] = useState([]);
 
   // const getMoreFeeds = () => {
   //   if (categoryId) {
@@ -49,6 +51,14 @@ const Home = ({ api }) => {
     }
   }, [categoryId, adInfo]);
 
+  useEffect(() => {
+    if (filter.length > 0 && feedInfo) {
+      setFeedInfo((prev) => {
+        return prev.filter((data) => filter.includes(data.category_id));
+      });
+    }
+  }, [filter]);
+
   // window.addEventListener("scroll", () => {
   //   const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
   //   if (scrollTop + clientHeight > scrollHeight - 5) {
@@ -66,6 +76,7 @@ const Home = ({ api }) => {
       <button className={styles.login}>로그인</button>
       <div className={styles.contents}>
         <Order setStandard={setStandard} />
+        <Filter category={category} setFilter={setFilter} />
         <ul className={styles.feeds}>
           {feedInfo &&
             feedInfo.map((info) => {

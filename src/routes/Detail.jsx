@@ -14,9 +14,16 @@ const Detail = ({ api }) => {
       <div className={styles.detail}>
         <h3 className={styles.title}>{detailInfo && detailInfo.title}</h3>
         <p className={styles.contents}>{detailInfo && detailInfo.contents}</p>
-        <p className={styles.date}>{detailInfo && detailInfo.created_at.split("T")[0]}</p>
+        <p className={styles.date}>
+          {detailInfo && detailInfo.created_at.split("T")[0]}
+        </p>
       </div>
-      <p>답변 <span className={styles.reply_count}>{detailInfo && detailInfo.reply.length}</span></p>
+      <p className={styles.reply_title}>
+        답변
+        <span className={styles.reply_count}>
+          {detailInfo && detailInfo.reply.length}
+        </span>
+      </p>
       <ul className={styles.replies}>
         {detailInfo &&
           detailInfo.reply.map((repl) => {
@@ -24,7 +31,9 @@ const Detail = ({ api }) => {
               <li className={styles.reply}>
                 <p className={styles.reply_username}>{repl.user.name}</p>
                 <p className={styles.reply_contents}>{repl.contents}</p>
-                <p className={styles.reply_date}>{repl.created_at.split("T")[0]}</p>
+                <p className={styles.reply_date}>
+                  {repl.created_at.split("T")[0]}
+                </p>
               </li>
             );
           })}

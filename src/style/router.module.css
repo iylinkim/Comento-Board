@@ -1,4 +1,12 @@
+@value mediaQuery from "common/size.css";
+
 .wrap{
     width:96%;
     margin:0 auto;
+}
+
+@media (max-width:mediaQuery){
+    .wrap{
+        width:100%;
+    }
 }
