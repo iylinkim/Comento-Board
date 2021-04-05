@@ -1,41 +1,61 @@
 @value makerGreen, makerWhite, makerLightGrey from "common/colors.css";
 @value mediaQuery from "common/size.css";
 
-.home{
-    padding-top:20px;
-    display:flex;
-    justify-content: space-between;
+.home {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.login{
-    width:10%;
-    height:30px;
-    margin-right:20px;
-    border-radius:2px;
-    border:none;
-    color:makerWhite;
-    font-weight:700;
-    background-color: makerGreen;
+.login {
+  width: 10%;
+  height: 30px;
+  margin-right: 20px;
+  border-radius: 2px;
+  border: none;
+  color: makerWhite;
+  font-weight: 700;
+  background-color: makerGreen;
 }
-.contents{
-    width:89%;
-    /* position:relative; */
-}
-
-.feeds{
-    margin-top:20px;
+.contents {
+  width: 89%;
+  /* position:relative; */
 }
 
-@media (max-width:mediaQuery){
-    .login{
-        display:none;
-    }
+.feeds {
+  margin-top: 20px;
+}
 
-    .contents{
-        width:100%;
-    }
+/* loading */
+.loading {
+  width: 30px;
+  height: 30px;
+    margin:30px auto;
+  border-radius: 50%;
+  border: 3px solid makerLightGrey;
+  border-top: 3px solid makerGreen;
+  animation: spin 0.8s linear infinite;
+}
 
-    .feeds{
-        background-color:makerLightGrey;
-    }
+@keyframes spin{
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: mediaQuery) {
+  .login {
+    display: none;
+  }
+
+  .contents {
+    width: 100%;
+  }
+
+  .feeds {
+    background-color: makerLightGrey;
+  }
 }

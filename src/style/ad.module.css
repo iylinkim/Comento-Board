@@ -1,47 +1,47 @@
-@value makerLightGrey,makerMediumGrey,makerDarkGrey, makerGreen, makerWhite from "common/colors.css";
+@value makerLightGrey,makerWhite from "common/colors.css";
 @value mediaQuery from "common/size.css";
 
-.feed {
+/* 광고 블럭 */
+.ad {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid makerLightGrey;
   border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.2s ease;
   background-color: makerWhite;
 }
-
-.feed:hover {
-  border-color: makerGreen;
-}
-
-.category {
-  padding-bottom: 10px;
-  border-bottom: 1px solid makerLightGrey;
+.sponsored {
+  padding-bottom: 20px;
   font-size: 0.8rem;
-  position: relative;
   color: makerMediumGrey;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
-.id {
-  position: absolute;
-  right: 0;
+.body {
+  display: flex;
+  justify-content: space-between;
 }
 
-.user_date {
-  padding: 10px 0;
-  font-size: 0.7rem;
+.img {
+  width: 44%;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.user_id {
-  padding-right: 10px;
-  border-right: 1px solid makerLightGrey;
-  color: makerGreen;
+.img > img {
+  width: 100%;
 }
 
-.date {
-  padding-left: 10px;
+.body > .text {
+  width: 53%;
+}
+
+.body .contents {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
 }
 
 .title {
@@ -59,14 +59,10 @@
 }
 
 @media (max-width: mediaQuery) {
-  .feed {
+  .ad {
     border: none;
     margin-bottom: 10px;
     border-radius: 0;
-  }
-
-  .feed:hover {
-    border-color: none;
   }
 
   .body {

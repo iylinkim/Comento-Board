@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Feed from "../components/Feed";
 import Order from "../components/Order";
 import styles from "style/home.module.css";
 import Filter from "components/Filter";
+import { v4 as uuidv4 } from "uuid";
+import Ad from "components/Ad";
 
 const Home = ({ api }) => {
   const [category, setCategory] = useState();
@@ -12,11 +14,6 @@ const Home = ({ api }) => {
   const [standard, setStandard] = useState(true);
   const [filter, setFilter] = useState([]);
 
-  // const getMoreFeeds = () => {
-  //   if (categoryId) {
-  //     api.getFeeds(categoryId,).then((result) => setFeedInfo(result.data));
-  //   }
-  // }
   useEffect(() => {
     api.getCategory().then((result) => {
       const category_id = result.map((result) => result.id);
@@ -28,28 +25,22 @@ const Home = ({ api }) => {
   }, []);
 
   useEffect(() => {
-    if (categoryId && adInfo) {
+    if (categoryId.length > 0) {
       api.getFeeds(categoryId, 10).then((result) => {
-        adInfo.forEach((ad, index) => {
-          if (index !== 0) {
-            let position = 4 * index - 1;
-            result.data.splice(position, 0, ad);
-          }
-        });
-        setFeedInfo(result.data);
-
-        if (standard) {
-          const filtered = result.data.filter(
-            (data) => data.category_id !== undefined
-          );
-        }
-
-        //  standard
-        //   ? setFeedInfo(result.data.sort((a, b) => a.id - b.id))
-        //   : setFeedInfo(result.data.sort((a, b) => b.id - a.id));
+        setFeedInfo(result.data.sort((a, b) => a.id - b.id));
       });
     }
-  }, [categoryId, adInfo]);
+  }, [categoryId]);
+
+  useEffect(() => {
+    if (feedInfo) {
+      standard
+        ? setFeedInfo(feedInfo.sort((a, b) => a.id - b.id))
+        : setFeedInfo(feedInfo.sort((a, b) => b.id - a.id));
+    }
+
+    console.log(feedInfo && feedInfo.map(info => info.id))
+  }, [standard]);
 
   useEffect(() => {
     if (filter.length > 0 && feedInfo) {
@@ -59,34 +50,69 @@ const Home = ({ api }) => {
     }
   }, [filter]);
 
-  // window.addEventListener("scroll", () => {
-  //   const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-  //   if (scrollTop + clientHeight > scrollHeight - 5) {
-  //     // setTimeout(console.log('scroll bottom'), 2000);
-  //     // this.getContents();
-  //     if (categoryId) {
-  //       api.getFeeds(categoryId,20).then((result) => setFeedInfo([...feedInfo, result.data]));
-  //     }
-  //     // getMoreFeeds();
-  //   }
-  // });
+  const getNextData = async () => {
+    const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+    if (scrollTop + clientHeight > scrollHeight - 5) {
+      if (categoryId && feedInfo) {
+        if (categoryId.length > 0) {
+          await api
+            .getFeeds(categoryId, feedInfo.length + 10)
+            .then((result) => {
+              setFeedInfo((prev) =>
+                [
+                  ...prev,
+                  ...result.data.filter(
+                    (data) => data.id > prev.length + 10 - prev.length
+                  ),
+                ].slice(0, prev.length + 10)
+              );
+            });
+        }
+      }
+    }
+  };
+
+  const throttle = (callback, time) => {
+    let throttleCheck;
+    return function () {
+      if (!throttleCheck) {
+        throttleCheck = setTimeout(() => {
+          callback(...arguments);
+          throttleCheck = false;
+        }, time);
+      }
+    };
+  };
+
+  window.addEventListener("scroll", throttle(getNextData, 600));
 
   return (
-    <div className={styles.home}>
-      <button className={styles.login}>로그인</button>
-      <div className={styles.contents}>
-        <Order setStandard={setStandard} />
-        <Filter category={category} setFilter={setFilter} />
-        <ul className={styles.feeds}>
-          {feedInfo &&
-            feedInfo.map((info) => {
-              return (
-                <Feed key={info.id} category={category} info={info} api={api} />
-              );
-            })}
-        </ul>
+    <>
+      <div className={styles.home}>
+        <button className={styles.login}>로그인</button>
+        <div className={styles.contents}>
+          <Order standard={standard} setStandard={setStandard} />
+          <Filter category={category} setFilter={setFilter} />
+          <ul className={styles.feeds}>
+            {feedInfo &&
+              feedInfo.map((info, index) => {
+                if ((index + 1) % 4 === 0 && adInfo[index]) {
+                  return <Ad key={uuidv4()} adInfo={adInfo[index - 3]} />;
+                }
+                return (
+                  <Feed
+                    key={uuidv4()}
+                    category={category}
+                    info={info}
+                    api={api}
+                  />
+                );
+              })}
+          </ul>
+        </div>
       </div>
-    </div>
+      <p className={styles.loading}></p>
+    </>
   );
 };
 
