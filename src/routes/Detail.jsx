@@ -29,7 +29,10 @@ const Detail = ({ api }) => {
           detailInfo.reply.map((repl) => {
             return (
               <li className={styles.reply}>
-                <p className={styles.reply_username}>{repl.user.name}</p>
+                <p className={styles.reply_username}>
+                  {repl.user.name}
+                  <span className={styles.reply_email}>{repl.user.email}</span>
+                </p>
                 <p className={styles.reply_contents}>{repl.contents}</p>
                 <p className={styles.reply_date}>
                   {repl.created_at.split("T")[0]}

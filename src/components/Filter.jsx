@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "style/filter.module.css";
 
 const Filter = ({ category, setFilter }) => {

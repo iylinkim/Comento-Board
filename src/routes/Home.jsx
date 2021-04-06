@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Feed from "../components/Feed";
 import Order from "../components/Order";
 import styles from "style/home.module.css";
 import Filter from "components/Filter";
 import { v4 as uuidv4 } from "uuid";
 import Ad from "components/Ad";
+import _ from "lodash";
 
 const Home = ({ api }) => {
   const [category, setCategory] = useState();
@@ -13,6 +14,7 @@ const Home = ({ api }) => {
   const [adInfo, setAdInfo] = useState();
   const [standard, setStandard] = useState(true);
   const [filter, setFilter] = useState([]);
+  // const [nextFeedInfo, setNextFeedInfo] = useState();
 
   useEffect(() => {
     api.getCategory().then((result) => {
@@ -22,7 +24,7 @@ const Home = ({ api }) => {
     });
 
     api.getAds().then((result) => setAdInfo(result));
-  }, []);
+  }, [api]);
 
   useEffect(() => {
     if (categoryId.length > 0) {
@@ -30,7 +32,7 @@ const Home = ({ api }) => {
         setFeedInfo(result.data.sort((a, b) => a.id - b.id));
       });
     }
-  }, [categoryId]);
+  }, [categoryId, api]);
 
   useEffect(() => {
     if (feedInfo) {
@@ -38,9 +40,7 @@ const Home = ({ api }) => {
         ? setFeedInfo(feedInfo.sort((a, b) => a.id - b.id))
         : setFeedInfo(feedInfo.sort((a, b) => b.id - a.id));
     }
-
-    console.log(feedInfo && feedInfo.map(info => info.id))
-  }, [standard]);
+  }, [standard, feedInfo]);
 
   useEffect(() => {
     if (filter.length > 0 && feedInfo) {
@@ -48,43 +48,31 @@ const Home = ({ api }) => {
         return prev.filter((data) => filter.includes(data.category_id));
       });
     }
-  }, [filter]);
+  }, [filter, feedInfo]);
 
   const getNextData = async () => {
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight > scrollHeight - 5) {
       if (categoryId && feedInfo) {
         if (categoryId.length > 0) {
-          await api
-            .getFeeds(categoryId, feedInfo.length + 10)
-            .then((result) => {
-              setFeedInfo((prev) =>
-                [
-                  ...prev,
-                  ...result.data.filter(
-                    (data) => data.id > prev.length + 10 - prev.length
-                  ),
-                ].slice(0, prev.length + 10)
-              );
-            });
+          // await api
+          //   .getFeeds(categoryId, feedInfo.length + 10)
+          //   .then((result) => {
+          //     setFeedInfo((prev) =>
+          //       [
+          //         ...prev,
+          //         ...result.data.filter(
+          //           (data) => data.id > prev.length + 10 - prev.length
+          //         ),
+          //       ].slice(0, prev.length + 10)
+          //     );
+          //   });
         }
       }
     }
   };
 
-  const throttle = (callback, time) => {
-    let throttleCheck;
-    return function () {
-      if (!throttleCheck) {
-        throttleCheck = setTimeout(() => {
-          callback(...arguments);
-          throttleCheck = false;
-        }, time);
-      }
-    };
-  };
-
-  window.addEventListener("scroll", throttle(getNextData, 600));
+  window.addEventListener("scroll", _.throttle(getNextData, 700));
 
   return (
     <>
@@ -96,8 +84,18 @@ const Home = ({ api }) => {
           <ul className={styles.feeds}>
             {feedInfo &&
               feedInfo.map((info, index) => {
-                if ((index + 1) % 4 === 0 && adInfo[index]) {
-                  return <Ad key={uuidv4()} adInfo={adInfo[index - 3]} />;
+                let num = 0;
+                if ((index + 1) % 4 === 0) {
+                  
+                  if (!adInfo[num] || adInfo[num] === undefined) {
+                    num = 0;
+                  } else {
+                    num = index - 3;
+                  }
+                  if(adInfo[num += 1] !== undefined && adInfo[num += 1]){
+                    console.log(adInfo[num += 1])
+                    return <Ad key={uuidv4()} adInfo={adInfo[(num += 1)]} />;
+                  };
                 }
                 return (
                   <Feed

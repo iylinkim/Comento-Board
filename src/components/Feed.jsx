@@ -11,7 +11,10 @@ const Feed = ({ category, info }) => {
   };
 
   return (
-    <li onClick={onClick} className={styles.feed}>
+    <li
+      onClick={onClick}
+      className={styles.feed}
+    >
       <div className={info.img ? styles.body : ""}>
         <>
           <p className={styles.category}>
