@@ -11,10 +11,10 @@ const Home = ({ api }) => {
   const [category, setCategory] = useState();
   const [categoryId, setCategoryId] = useState([]);
   const [feedInfo, setFeedInfo] = useState();
+  const [filteredInfo, setFilteredInfo] = useState();
   const [adInfo, setAdInfo] = useState();
   const [standard, setStandard] = useState(true);
   const [filter, setFilter] = useState([]);
-  // const [nextFeedInfo, setNextFeedInfo] = useState();
 
   useEffect(() => {
     api.getCategory().then((result) => {
@@ -37,8 +37,8 @@ const Home = ({ api }) => {
   useEffect(() => {
     if (feedInfo) {
       standard
-        ? setFeedInfo(feedInfo.sort((a, b) => a.id - b.id))
-        : setFeedInfo(feedInfo.sort((a, b) => b.id - a.id));
+        ? setFeedInfo((prev) => prev.sort((a, b) => b.id - a.id))
+        : setFeedInfo((prev) => prev.sort((a, b) => a.id - b.id));
     }
   }, [standard, feedInfo]);
 
@@ -52,24 +52,19 @@ const Home = ({ api }) => {
 
   const getNextData = async () => {
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+    //scroll이 바닥에 닿았을 때
     if (scrollTop + clientHeight > scrollHeight - 5) {
-      if (categoryId && feedInfo) {
-        if (categoryId.length > 0) {
-          // await api
-          //   .getFeeds(categoryId, feedInfo.length + 10)
-          //   .then((result) => {
-          //     setFeedInfo((prev) =>
-          //       [
-          //         ...prev,
-          //         ...result.data.filter(
-          //           (data) => data.id > prev.length + 10 - prev.length
-          //         ),
-          //       ].slice(0, prev.length + 10)
-          //     );
-          //   });
-        }
+    if (categoryId && feedInfo) {
+      if (categoryId.length > 0) {
+        await api.getFeeds(categoryId, feedInfo.length + 10).then((result) => {
+          setFeedInfo((prev) => [
+            ...prev,
+            ...result.data.filter((data) => data.id > prev.length),
+          ]);
+        });
       }
     }
+     }
   };
 
   window.addEventListener("scroll", _.throttle(getNextData, 700));
@@ -86,16 +81,14 @@ const Home = ({ api }) => {
               feedInfo.map((info, index) => {
                 let num = 0;
                 if ((index + 1) % 4 === 0) {
-                  
                   if (!adInfo[num] || adInfo[num] === undefined) {
                     num = 0;
                   } else {
                     num = index - 3;
                   }
-                  if(adInfo[num += 1] !== undefined && adInfo[num += 1]){
-                    console.log(adInfo[num += 1])
+                  if (adInfo[(num += 1)] !== undefined && adInfo[(num += 1)]) {
                     return <Ad key={uuidv4()} adInfo={adInfo[(num += 1)]} />;
-                  };
+                  }
                 }
                 return (
                   <Feed
@@ -107,6 +100,7 @@ const Home = ({ api }) => {
                 );
               })}
           </ul>
+          <ul></ul>
         </div>
       </div>
       <p className={styles.loading}></p>

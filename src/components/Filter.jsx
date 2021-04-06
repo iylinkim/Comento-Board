@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, {useRef, useState } from "react";
 import styles from "style/filter.module.css";
 
 const Filter = ({ category, setFilter }) => {
   const [popup, setPopup] = useState(false);
+
   const onClick = () => {
     setPopup(true);
   };
@@ -27,6 +28,8 @@ const Filter = ({ category, setFilter }) => {
   const toggleCheck = (e) => {
    e.target.removeAttribute("checked")
   };
+
+
   return (
     <>
       <button className={styles.filter_button} onClick={onClick}>
@@ -45,7 +48,6 @@ const Filter = ({ category, setFilter }) => {
                   <p key={cate.id} className={styles.category}>
                     <input
                       onChange={toggleCheck}
-                      checked
                       type="checkbox"
                       name={cate.id}
                       className={styles.checkbox}
