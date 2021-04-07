@@ -8,7 +8,7 @@ const Detail = ({ api }) => {
 
   useEffect(() => {
     api.getDetail(path.id).then((result) => setDetailInfo(result));
-  }, []);
+  }, [api, path.id]);
   return (
     <>
       <div className={styles.detail}>

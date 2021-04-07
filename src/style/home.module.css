@@ -1,10 +1,14 @@
-@value makerGreen, makerWhite, makerLightGrey from "common/colors.css";
+@value makerGreen, makerWhite, makerLightGrey, makerMediumGrey from "common/colors.css";
 @value mediaQuery from "common/size.css";
 
 .home {
   padding-top: 20px;
   display: flex;
   justify-content: space-between;
+}
+
+.filtered{
+  padding-top: 20px;
 }
 
 .login {
@@ -19,7 +23,6 @@
 }
 .contents {
   width: 89%;
-  /* position:relative; */
 }
 
 .feeds {
@@ -35,6 +38,18 @@
   border: 3px solid makerLightGrey;
   border-top: 3px solid makerGreen;
   animation: spin 0.8s linear infinite;
+}
+
+/* toggleAd */
+.toggleAd{
+  padding-top:8px;
+  font-size:0.7rem;
+  color:makerMediumGrey;
+}
+
+.toggleAd > input{
+  margin-right:5px;
+  vertical-align: middle;
 }
 
 @keyframes spin{
@@ -57,5 +72,9 @@
 
   .feeds {
     background-color: makerLightGrey;
+  }
+
+  .toggleAd{
+    padding-left:15px;
   }
 }

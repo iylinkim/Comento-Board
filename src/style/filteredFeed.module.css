@@ -1,0 +1,89 @@
+@value makerLightGrey,makerMediumGrey,makerDarkGrey, makerGreen, makerWhite from "common/colors.css";
+@value mediaQuery from "common/size.css";
+
+.feed {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid makerLightGrey;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: makerWhite;
+}
+
+.feed:hover {
+  border-color: makerGreen;
+}
+
+.category {
+  padding-bottom: 10px;
+  border-bottom: 1px solid makerLightGrey;
+  font-size: 0.8rem;
+  position: relative;
+  color: makerMediumGrey;
+  opacity: 0.5;
+}
+
+.id {
+  position: absolute;
+  right: 0;
+}
+
+.user_date {
+  padding: 10px 0;
+  font-size: 0.7rem;
+}
+
+.user_id {
+  padding-right: 10px;
+  border-right: 1px solid makerLightGrey;
+  color: makerGreen;
+}
+
+.date {
+  padding-left: 10px;
+}
+
+.title {
+  padding-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.contents {
+  color: makerDarkGrey;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: mediaQuery) {
+  .feed {
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 0;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .feed:hover {
+    border-color: none;
+  }
+
+  .body {
+    flex-direction: column;
+  }
+
+  .img,
+  .body > .text {
+    width: 100%;
+  }
+
+  .img {
+    margin-bottom: 10px;
+  }
+}
