@@ -3,10 +3,9 @@ import Feed from "../components/Feed";
 import Order from "../components/Order";
 import styles from "style/home.module.css";
 import Filter from "components/Filter";
-import { v4 as uuidv4 } from "uuid";
 import Ad from "components/Ad";
-import _ from "lodash";
 import FilteredFeed from "components/FilteredFeed";
+import { v4 as uuidv4 } from "uuid";
 
 const Home = ({ api }) => {
   const [category, setCategory] = useState();
@@ -85,7 +84,19 @@ const Home = ({ api }) => {
     }
   };
 
-  window.addEventListener("scroll", _.throttle(getNextData, 700));
+  const throttle = (callback, time) => {
+    let throttleCheck;
+    return function () {
+      if (!throttleCheck) {
+        throttleCheck = setTimeout(() => {
+          callback(...arguments);
+          throttleCheck = false;
+        }, time);
+      }
+    };
+  };
+
+  window.addEventListener("scroll", throttle(getNextData, 700));
 
   const toggleAd = (e) => {
     if (e.target.tagName === "INPUT") {
