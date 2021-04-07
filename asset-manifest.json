@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Comento-Board/static/css/main.add50043.chunk.css",
+    "main.js": "/Comento-Board/static/js/main.84ab0eb5.chunk.js",
+    "main.js.map": "/Comento-Board/static/js/main.84ab0eb5.chunk.js.map",
+    "runtime-main.js": "/Comento-Board/static/js/runtime-main.c9a0a7d2.js",
+    "runtime-main.js.map": "/Comento-Board/static/js/runtime-main.c9a0a7d2.js.map",
+    "static/js/2.6004c42a.chunk.js": "/Comento-Board/static/js/2.6004c42a.chunk.js",
+    "static/js/2.6004c42a.chunk.js.map": "/Comento-Board/static/js/2.6004c42a.chunk.js.map",
+    "index.html": "/Comento-Board/index.html",
+    "static/css/main.add50043.chunk.css.map": "/Comento-Board/static/css/main.add50043.chunk.css.map",
+    "static/js/2.6004c42a.chunk.js.LICENSE.txt": "/Comento-Board/static/js/2.6004c42a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c9a0a7d2.js",
+    "static/js/2.6004c42a.chunk.js",
+    "static/css/main.add50043.chunk.css",
+    "static/js/main.84ab0eb5.chunk.js"
+  ]
+}
